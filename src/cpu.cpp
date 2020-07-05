@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "cpu.h"
+#include "include/cpu.h"
 
 struct TwoBytes { // for regs
         uint8_t l;
@@ -61,6 +61,8 @@ struct Registers {
     reg_t si; // Source Index (for copying)
     reg_t di; // Destination Index (for copying (ex. strings or segments))
 
+    // Control Registers
+    reg_t ip;
     reg_t flags;
 
     void nullRegs() {
@@ -81,6 +83,7 @@ struct Registers {
         si.w = 0;
         di.w = 0;
 
+        ip.w = 0;
         flags.w = 0;
     }
 
@@ -97,7 +100,6 @@ struct CPU {
     regs_t regs;
 
     bool running;
-    uint32_t cycles;
 };
 
 cpu_t* cpu_create(int memSize) {
@@ -105,6 +107,35 @@ cpu_t* cpu_create(int memSize) {
     cpu->mem = malloc(sizeof(uint8_t) * memSize);
 
     cpu->running = false;
-    cpu->cycles = 0;
     cpu->regs.nullRegs();
+}
+
+void cpu_delete(cpu_t* cpu) {
+    free(cpu->mem);
+    free(cpu);
+}
+
+void cpu_loadRom(cpu_t* cpu, const char* code) {
+    // loader
+}
+
+uint16_t cpu_nextWord(cpu_t* cpu) {
+    uint16_t state = cpu->regs.ip.w;
+    cpu->regs.ip.w = 
+}
+
+void cpu_getOperand(cpu_t* cpu, opt_t* op, uint8_t val) {
+
+}
+
+void cpu_setOperand(cpu_t* cpu, opt_t* op, uint16_t val) {
+
+}
+
+void cpu_tick(cpu_t *cpu) {
+
+}
+
+void cpu_loop(cpu_t *cpu) {
+
 }

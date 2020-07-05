@@ -12,9 +12,9 @@ typedef struct Operand opt_t;
 typedef struct CPU cpu_t;
 
 cpu_t* cpu_create(int memSize);
-void cpu_delete();
+void cpu_delete(cpu_t*);
 void cpu_loadRom(cpu_t*, const char *);
-void cpu_nextWord(cpu_t*);
+uint16_t cpu_nextWord(cpu_t*);
 void cpu_getOperand(cpu_t*, opt_t*, uint8_t);
 void cpu_setOperand(cpu_t*, opt_t*, uint16_t);
 void cpu_tick(cpu_t *);
