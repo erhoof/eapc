@@ -1,8 +1,6 @@
 #ifndef CPU_H_FILE
 #define CPU_H_FILE
 
-#define EC1_RAM 32 // by 2 bytes
-
 typedef struct TwoBytes b_t;
 typedef struct Flags f_t;
 typedef union  Register reg_t;

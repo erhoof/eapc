@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "include/cpu.h"
+#include "cpu.h"
 
 struct TwoBytes { // for regs
         uint8_t l;
@@ -96,7 +96,7 @@ struct Operand {
 };
 
 struct CPU {
-    void *mem;
+    uint16_t* mem;
     regs_t regs;
 
     bool running;
@@ -104,7 +104,7 @@ struct CPU {
 
 cpu_t* cpu_create(int memSize) {
     cpu_t* cpu = (cpu_t*)malloc(sizeof(cpu_t));
-    cpu->mem = malloc(sizeof(uint8_t) * memSize);
+    cpu->mem = (uint16_t*)malloc(sizeof(uint16_t) * memSize);
 
     cpu->running = false;
     cpu->regs.nullRegs();
@@ -121,11 +121,12 @@ void cpu_loadRom(cpu_t* cpu, const char* code) {
 
 uint16_t cpu_nextWord(cpu_t* cpu) {
     uint16_t state = cpu->regs.ip.w;
-    cpu->regs.ip.w = 
+    cpu->regs.ip.w++;
+    return cpu->mem[state];
 }
 
 void cpu_getOperand(cpu_t* cpu, opt_t* op, uint8_t val) {
-
+    
 }
 
 void cpu_setOperand(cpu_t* cpu, opt_t* op, uint16_t val) {
