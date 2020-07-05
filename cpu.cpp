@@ -4,10 +4,35 @@
 typedef union Register {
     uint16_t W;
     
-    union SB {
-        uint8_t L;
-        uint8_t H;
+    struct SB {
+        uint8_t l;
+        uint8_t h;
     } b_t;
+
+    struct F {
+        // [Status flags]
+
+        // 8085 part
+        // https://www.geeksforgeeks.org/flag-register-8085-microprocessor/
+        char cy; // Carry Flag
+        char n_f0: // Null
+        char p; // Parity Flag 
+        char n_f1: // Null
+        char ac; // Auxiliary Carry Flag
+        char n_f2: // Null
+        char z; // Zero Flag
+        char s; // Sign Flag
+        
+        // 8086 part
+        // https://www.geeksforgeeks.org/flag-register-8086-microprocessor/
+        char o; // Overflow Flag
+
+        // [Control flags]
+        char d; // Directional Flag
+        char i; // Interrupt Flag
+        char t; // Trap Flag
+
+    } f_t;
 
 } reg_t;
 
